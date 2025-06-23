@@ -202,7 +202,7 @@ Tu verras des logs confirmant l'arrêt propre du serveur.
 
 ## Barème de Notation (/20)
 
-### 1. Robustesse Technique & Fonctionnelle (10 points)
+### 1. Robustesse Technique & Fonctionnelle (12 points)
 * 1 point : Le projet se lance via ./url-shortener run-server.
 * 4 points : Implémentation correcte de la redirection non-bloquante (GET /{shortCode}) avec utilisation efficace des goroutines et channels pour les analytics.
 * 2 points : Le moniteur d'URLs fonctionne correctement, vérifie les URLs périodiquement et génère des notifications logiques.
@@ -213,6 +213,6 @@ Tu verras des logs confirmant l'arrêt propre du serveur.
 * 1 point : Organisation des commits Git avec des messages clairs et pertinents.
 ### 3. Entretien Technique (4 points)
 * 4 points : Votre capacité à expliquer et à défendre votre code lors d'un entretien individuel/en groupe. Cela inclut la compréhension de l'architecture, l'explication du fonctionnement asynchrone (workers, moniteur), et votre capacité à répondre aux questions techniques sur votre code. Vous devrez être capables de naviguer dans votre projet et de justifier vos choix.
-### 4. Points bonus
+### 4. Points faciles
 * 2 points si votre code compile
 * 2 points si vous faites des erreurs personnalisées
