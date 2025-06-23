@@ -40,8 +40,7 @@ Exemple:
 		}
 
 		// TODO S'assurer que la connexion est fermée à la fin de l'exécution de la commande
-		defer sqlDB.Close()
-
+		
 		// TODO : Initialiser les repositories et services nécessaires NewLinkRepository & NewLinkService
 
 		// TODO : Appeler le LinkService et la fonction CreateLink pour créer le lien court.
