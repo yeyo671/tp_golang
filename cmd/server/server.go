@@ -45,6 +45,13 @@ puis lance le serveur HTTP.`,
 			log.Fatalf("FATAL: Impossible de se connecter à la base de données: %v", err)
 		}
 
+		// Effectuer les migrations automatiques pour créer les tables
+		err = db.AutoMigrate(&models.Link{}, &models.Click{})
+		if err != nil {
+			log.Fatalf("FATAL: Impossible d'effectuer les migrations de base de données: %v", err)
+		}
+		log.Println("Migrations de base de données effectuées avec succès.")
+
 		// Initialiser les repositories.
 		// Créez des instances de GormLinkRepository et GormClickRepository.
 		linkRepo := repository.NewLinkRepository(db)
