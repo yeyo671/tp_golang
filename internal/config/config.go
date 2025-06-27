@@ -1,9 +1,7 @@
 package config
 
 import (
-	"fmt"
 	"log" // Pour logger les informations ou erreurs de chargement de config
-
 	"github.com/spf13/viper" // La bibliothèque pour la gestion de configuration
 )
 
