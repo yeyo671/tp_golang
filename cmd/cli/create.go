@@ -3,18 +3,15 @@ package cli
 import (
 	"fmt"
 	"log"
-	"net/url" // Pour valider le format de l'URL
-	"os"
 
+	// Pour valider le format de l'URL
 	cmd2 "github.com/axellelanca/urlshortener/cmd"
-	"github.com/axellelanca/urlshortener/internal/repository"
-	"github.com/axellelanca/urlshortener/internal/services"
 	"github.com/spf13/cobra"
-	"gorm.io/driver/sqlite" // Driver SQLite pour GORM
-	"gorm.io/gorm"
+	// Driver SQLite pour GORM
 )
 
-// TODO : Faire une variable longURLFlag qui stockera la valeur du flag --url
+// longURLFlag stockera la valeur du flag --url
+var longURLFlag string
 
 // CreateCmd représente la commande 'create'
 var CreateCmd = &cobra.Command{
@@ -40,7 +37,7 @@ Exemple:
 		}
 
 		// TODO S'assurer que la connexion est fermée à la fin de l'exécution de la commande
-		
+
 		// TODO : Initialiser les repositories et services nécessaires NewLinkRepository & NewLinkService
 
 		// TODO : Appeler le LinkService et la fonction CreateLink pour créer le lien court.
@@ -56,10 +53,12 @@ Exemple:
 // init() s'exécute automatiquement lors de l'importation du package.
 // Il est utilisé pour définir les flags que cette commande accepte.
 func init() {
-	// TODO : Définir le flag --url pour la commande create.
+	// Définir le flag --url pour la commande create
+	CreateCmd.Flags().StringVarP(&longURLFlag, "url", "u", "", "URL longue à raccourcir (requis)")
 
-	// TODO :  Marquer le flag comme requis
+	// Marquer le flag comme requis
+	CreateCmd.MarkFlagRequired("url")
 
-	// TODO : Ajouter la commande à RootCmd
-
+	// Ajouter la commande à RootCmd
+	cmd2.RootCmd.AddCommand(CreateCmd)
 }

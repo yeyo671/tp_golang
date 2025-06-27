@@ -14,8 +14,8 @@ import (
 	"gorm.io/gorm"
 )
 
-// TODO : variable shortCodeFlag qui stockera la valeur du flag --code
-
+// shortCodeFlag stockera la valeur du flag --code
+var shortCodeFlag string
 
 // StatsCmd représente la commande 'stats'
 var StatsCmd = &cobra.Command{
@@ -68,11 +68,12 @@ Exemple:
 // init() s'exécute automatiquement lors de l'importation du package.
 // Il est utilisé pour définir les flags que cette commande accepte.
 func init() {
-	// TODO 7: Définir le flag --code pour la commande stats.
+	// Définir le flag --code pour la commande stats
+	StatsCmd.Flags().StringVarP(&shortCodeFlag, "code", "c", "", "Code court du lien à analyser (requis)")
 
-	// TODO Marquer le flag comme requis
+	// Marquer le flag comme requis
+	StatsCmd.MarkFlagRequired("code")
 
-
-	// TODO : Ajouter la commande à RootCmd
-
+	// Ajouter la commande à RootCmd
+	cmd2.RootCmd.AddCommand(StatsCmd)
 }

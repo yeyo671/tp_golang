@@ -5,10 +5,8 @@ import (
 	"log"
 
 	cmd2 "github.com/axellelanca/urlshortener/cmd"
-	"github.com/axellelanca/urlshortener/internal/models"
 	"github.com/spf13/cobra"
-	"gorm.io/driver/sqlite" // Driver SQLite pour GORM
-	"gorm.io/gorm"
+	// Driver SQLite pour GORM
 )
 
 // MigrateCmd représente la commande 'migrate'
@@ -38,5 +36,6 @@ basées sur les modèles Go.`,
 }
 
 func init() {
-	// TODO : Ajouter la commande à RootCmd
+	// Ajouter la commande à RootCmd
+	cmd2.RootCmd.AddCommand(MigrateCmd)
 }
