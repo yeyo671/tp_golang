@@ -22,16 +22,19 @@ func StartClickWorkers(workerCount int, clickEventsChan <-chan models.ClickEvent
 // Elle tourne indéfiniment, lisant les événements de clic dès qu'ils sont disponibles dans le channel.
 func clickWorker(clickEventsChan <-chan models.ClickEvent, clickRepo repository.ClickRepository) {
 	for event := range clickEventsChan { // Boucle qui lit les événements du channel
-		// TODO 1: Convertir le 'ClickEvent' (reçu du channel) en un modèle 'models.Click'.
+		// Conversion du ClickEvent en modèle Click
+		click := models.Click{
+			LinkID:    event.LinkID,
+			Timestamp: event.Timestamp,
+			UserAgent: event.UserAgent,
+			IPAddress: event.IPAddress,
+		}
 
-		// TODO 2: Persister le clic en base de données via le 'clickRepo' (CreateClick).
-		// Implémentez ici une gestion d'erreur simple : loggez l'erreur si la persistance échoue.
-		// Pour un système en production, une logique de retry
+		// Persister le clic en base de données via le clickRepo
+		err := clickRepo.CreateClick(&click)
 
 		if err != nil {
 			// Si une erreur se produit lors de l'enregistrement, logguez-la.
-			// L'événement est "perdu" pour ce TP, mais dans un vrai système,
-			// vous pourriez le remettre dans une file de retry ou une file d'erreurs.
 			log.Printf("ERROR: Failed to save click for LinkID %d (UserAgent: %s, IP: %s): %v",
 				event.LinkID, event.UserAgent, event.IPAddress, err)
 
