@@ -88,7 +88,7 @@ puis lance le serveur HTTP.`,
 		// Configurer le routeur Gin et les handlers API.
 		// Passez les services nécessaires aux fonctions de configuration des routes.
 		router := gin.Default()
-		api.SetupRoutes(router, linkService, cfg.Analytics.BufferSize)
+		api.SetupRoutes(router, linkService, cfg.Analytics.BufferSize, cfg.Server.BaseURL)
 
 		// Pas toucher au log
 		log.Println("Routes API configurées.")

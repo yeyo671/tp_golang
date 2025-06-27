@@ -17,7 +17,7 @@ import (
 var ClickEventsChannel chan models.ClickEvent
 
 // SetupRoutes configure toutes les routes de l'API Gin et injecte les dépendances nécessaires
-func SetupRoutes(router *gin.Engine, linkService *services.LinkService, bufferSize int) {
+func SetupRoutes(router *gin.Engine, linkService *services.LinkService, bufferSize int, baseURL string) {
 	// Le channel est initialisé ici.
 	if ClickEventsChannel == nil {
 		// Créer le channel ici (make), il doit être bufférisé
@@ -34,7 +34,7 @@ func SetupRoutes(router *gin.Engine, linkService *services.LinkService, bufferSi
 	// GET /links/:shortCode/stats
 	api := router.Group("/api/v1")
 	{
-		api.POST("/links", CreateShortLinkHandler(linkService))
+		api.POST("/links", CreateShortLinkHandler(linkService, baseURL))
 		api.GET("/links/:shortCode/stats", GetLinkStatsHandler(linkService))
 	}
 
@@ -54,7 +54,7 @@ type CreateLinkRequest struct {
 }
 
 // CreateShortLinkHandler gère la création d'une URL courte.
-func CreateShortLinkHandler(linkService *services.LinkService) gin.HandlerFunc {
+func CreateShortLinkHandler(linkService *services.LinkService, baseURL string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var req CreateLinkRequest
 		// Tente de lier le JSON de la requête à la structure CreateLinkRequest.
@@ -76,7 +76,7 @@ func CreateShortLinkHandler(linkService *services.LinkService) gin.HandlerFunc {
 		c.JSON(http.StatusCreated, gin.H{
 			"short_code":     link.ShortCode,
 			"long_url":       link.LongURL,
-			"full_short_url": "http://localhost:8080/" + link.ShortCode, // TODO: Utiliser cfg.Server.BaseURL ici
+			"full_short_url": baseURL + "/" + link.ShortCode,
 		})
 	}
 }
