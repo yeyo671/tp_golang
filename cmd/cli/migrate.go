@@ -2,11 +2,14 @@ package cli
 
 import (
 	"fmt"
+	"github.com/axellelanca/urlshortener/internal/models"
 	"log"
 
 	cmd2 "github.com/axellelanca/urlshortener/cmd"
 	"github.com/spf13/cobra"
-	// Driver SQLite pour GORM
+
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 // MigrateCmd représente la commande 'migrate'
